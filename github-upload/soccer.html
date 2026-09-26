@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>France vs Spain Soccer Demo</title>
+    <link rel="stylesheet" href="./soccer.css?v=20260712-demo21" />
+  </head>
+  <body>
+    <main class="shell soccer-shell">
+      <section class="arena-wrap soccer-arena" aria-label="法国对战西班牙足球场">
+        <div class="arena-hud" aria-label="本局控制">
+          <div>
+            <span class="round-label">MATCH</span>
+            <strong id="matchTimer">0.0'</strong>
+          </div>
+          <div class="score-pill" aria-label="比分">
+            <span>法国</span>
+            <strong><span id="franceScore">0</span> : <span id="spainScore">0</span></strong>
+            <span>西班牙</span>
+          </div>
+          <div class="record-controls">
+            <span id="recordStatus" class="record-status">未录制</span>
+            <button id="recordBtn" class="record-btn" type="button">录制</button>
+          </div>
+        </div>
+
+        <canvas id="soccerGame" width="1120" height="700"></canvas>
+
+        <div class="start-screen soccer-start" id="startScreen">
+          <article class="start-card red-start team-start france-start">
+            <div class="start-photo">
+              <img src="./assets/soccer-mbappe.png?v=20260712-demo21" alt="姆巴佩" />
+            </div>
+            <div class="start-flag">
+              <span class="team-crest">FRA</span>
+            </div>
+            <h1>法国</h1>
+          </article>
+          <div class="versus">
+            <span>VS</span>
+            <button id="startBtn" type="button">开始比赛</button>
+            <div class="start-record-controls">
+              <span id="startRecordStatus" class="record-status">未录制</span>
+              <button id="startRecordBtn" class="record-btn" type="button">录制</button>
+            </div>
+          </div>
+          <article class="start-card blue-start team-start spain-start">
+            <div class="start-photo">
+              <img src="./assets/soccer-yamal.png?v=20260712-demo21" alt="亚马尔" />
+            </div>
+            <div class="start-flag">
+              <span class="team-crest">ESP</span>
+            </div>
+            <h1>西班牙</h1>
+          </article>
+        </div>
+
+        <div class="result" id="matchResult" hidden>
+          <div class="result-emblem">FULL TIME</div>
+          <p id="resultTitle">平局</p>
+          <span class="result-subtitle" id="resultDetail">法国 0 - 0 西班牙</span>
+          <button id="playAgainBtn" type="button">再来一局</button>
+        </div>
+      </section>
+
+      <section class="fighter-grid soccer-panels" aria-label="参赛球队">
+        <article class="fighter-panel red">
+          <header class="fighter-head">
+            <div class="avatar team-avatar france-avatar">FRA</div>
+            <div>
+              <h2>法国</h2>
+              <span class="skill-chip" id="franceStatus">进球 0</span>
+            </div>
+          </header>
+        </article>
+
+        <article class="fighter-panel blue">
+          <header class="fighter-head">
+            <div class="avatar team-avatar spain-avatar">ESP</div>
+            <div>
+              <h2>西班牙</h2>
+              <span class="skill-chip" id="spainStatus">进球 0</span>
+            </div>
+          </header>
+        </article>
+      </section>
+    </main>
+
+    <script src="./soccer.js?v=20260712-demo21"></script>
+  </body>
+</html>

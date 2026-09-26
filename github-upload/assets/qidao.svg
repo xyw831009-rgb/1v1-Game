@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="七刀占位头像">
+  <defs>
+    <radialGradient id="bg" cx="42%" cy="32%" r="72%">
+      <stop offset="0" stop-color="#fff1c8"/>
+      <stop offset="0.42" stop-color="#b98252"/>
+      <stop offset="1" stop-color="#423232"/>
+    </radialGradient>
+    <linearGradient id="blade" x1="0" x2="1">
+      <stop offset="0" stop-color="#f6f0dc"/>
+      <stop offset="1" stop-color="#9aa2a0"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="#2b2522"/>
+  <circle cx="128" cy="128" r="95" fill="url(#bg)"/>
+  <g stroke="#211a18" stroke-linecap="round" stroke-width="12">
+    <path d="M75 76c25-23 80-24 108 5"/>
+    <path d="M78 175c32 23 72 23 102-2"/>
+  </g>
+  <g transform="translate(128 128)">
+    <g fill="url(#blade)" stroke="#2c2521" stroke-width="3">
+      <path d="M-7-92 7-92 4-20-4-20z"/>
+      <path d="M-7 92 7 92 4 20-4 20z"/>
+      <path d="M-92-7-92 7-20 4-20-4z"/>
+      <path d="M92-7 92 7 20 4 20-4z"/>
+      <path d="M-70-63-61-72-12-17-17-12z"/>
+      <path d="M70 63 61 72 12 17 17 12z"/>
+      <path d="M63-70 72-61 17-12 12-17z"/>
+    </g>
+    <circle r="38" fill="#f3d099" stroke="#211a18" stroke-width="8"/>
+    <circle cx="-13" cy="-6" r="5" fill="#211a18"/>
+    <circle cx="13" cy="-6" r="5" fill="#211a18"/>
+    <path d="M-10 14c9 7 19 7 29 0" fill="none" stroke="#211a18" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>

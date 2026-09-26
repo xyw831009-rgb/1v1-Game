@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ball Arena Prototype</title>
+    <link rel="stylesheet" href="./styles.css?v=20260907-mingwang2" />
+    <link rel="preload" as="image" href="./assets/visuals/danjin-magic-circle.png?v=20260807-danjin2" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="arena-wrap" aria-label="游戏场地">
+        <div class="arena-hud" aria-label="本局控制">
+          <div>
+            <span class="round-label">ROUND</span>
+            <strong id="timer">00:00</strong>
+          </div>
+          <div class="record-controls">
+            <span id="recordStatus" class="record-status">未录制</span>
+            <button id="recordBtn" class="record-btn" type="button">录制</button>
+          </div>
+        </div>
+        <canvas id="game" width="960" height="600"></canvas>
+        <div class="start-screen" id="startScreen">
+          <article class="start-card red-start">
+            <div class="start-art">
+              <img id="startRedImg" src="./assets/wuxian.png?v=20260626-wuxian1" alt="无限" />
+            </div>
+            <h1 id="startRedName">无限</h1>
+          </article>
+          <article class="start-card red-ally-start" id="startRedAllyCard" hidden>
+            <div class="start-art">
+              <img id="startRedAllyImg" src="./assets/xuhuai.png" alt="虚淮" />
+            </div>
+            <h1 id="startRedAllyName">虚淮</h1>
+          </article>
+          <div class="versus">
+            <div class="lightning-field" aria-hidden="true">
+              <img class="lightning-main" src="./assets/visuals/start-lightning.png" alt="" />
+              <img class="lightning-echo" src="./assets/visuals/start-lightning.png" alt="" />
+            </div>
+            <span>VS</span>
+            <button id="startBtn" type="button">开始比赛</button>
+            <div class="start-record-controls">
+              <span id="startRecordStatus" class="record-status">未录制</span>
+              <button id="startRecordBtn" class="record-btn" type="button">录制</button>
+            </div>
+          </div>
+          <article class="start-card blue-start">
+            <div class="start-art">
+              <img id="startBlueImg" src="./assets/fengxi.png?v=20260604-fengxi-image1" alt="风息" />
+            </div>
+            <h1 id="startBlueName">风息</h1>
+          </article>
+        </div>
+        <div class="result" id="result" hidden>
+          <div class="result-emblem">WINNER</div>
+          <div class="result-avatar">
+            <img id="resultImage" src="./assets/wuxian.png?v=20260626-wuxian1" alt="" />
+          </div>
+          <p id="resultText">无限 获胜</p>
+          <span class="result-subtitle" id="resultSubtitle">对战结束</span>
+          <button id="playAgainBtn" type="button">再来一局</button>
+        </div>
+      </section>
+
+      <section class="fighter-grid" aria-label="参赛角色">
+        <article class="fighter-panel red">
+          <header class="fighter-head">
+            <div class="avatar image-avatar">
+              <img id="redAvatar" src="./assets/wuxian.png?v=20260626-wuxian1" alt="无限" />
+            </div>
+            <div>
+              <h2 id="redName">无限</h2>
+              <span class="skill-chip" id="redSkill">技能准备中</span>
+            </div>
+          </header>
+          <div class="hp-track" aria-label="红色试作球生命值">
+            <div class="hp-fill" id="redHp"></div>
+          </div>
+          <div class="stat-row">
+            <span id="redHpText">80 / 80 HP</span>
+          </div>
+          <p class="fighter-copy" id="redCopy">
+            御灵系-金，空间系<br />
+            技能：金系召唤，领域吞噬<br />
+            “不必问我，你可以有自己的答案。”
+          </p>
+        </article>
+
+        <article class="fighter-panel red red-ally-panel" id="redAllyPanel" hidden>
+          <header class="fighter-head">
+            <div class="avatar image-avatar">
+              <img id="redAllyAvatar" src="./assets/xuhuai.png" alt="虚淮" />
+            </div>
+            <div>
+              <h2 id="redAllyName">虚淮</h2>
+              <span class="skill-chip" id="redAllySkill">技能准备中</span>
+            </div>
+          </header>
+          <div class="hp-track" aria-label="左侧第二角色生命值">
+            <div class="hp-fill" id="redAllyHp"></div>
+          </div>
+          <div class="stat-row">
+            <span id="redAllyHpText">80 / 80 HP</span>
+          </div>
+          <p class="fighter-copy" id="redAllyCopy">
+            御灵系-冰<br />
+            技能：冰晶，冰河时代<br />
+            “你还是输给肉了”
+          </p>
+        </article>
+
+        <article class="fighter-panel blue">
+          <header class="fighter-head">
+            <div class="avatar image-avatar">
+              <img id="blueAvatar" src="./assets/fengxi.png?v=20260604-fengxi-image1" alt="风息" />
+            </div>
+            <div>
+              <h2 id="blueName">风息</h2>
+              <span class="skill-chip" id="blueSkill">技能准备中</span>
+            </div>
+          </header>
+          <div class="hp-track" aria-label="蓝色试作球生命值">
+            <div class="hp-fill" id="blueHp"></div>
+          </div>
+          <div class="stat-row">
+            <span id="blueHpText">80 / 80 HP</span>
+          </div>
+          <p class="fighter-copy" id="blueCopy">
+            御灵系-木，生灵系<br />
+            技能：木系召唤，豪夺<br />
+            “总有一天我们会无处可去的”
+          </p>
+        </article>
+      </section>
+
+      <section class="roster-panel" aria-label="角色选择槽">
+        <button class="roster-nav roster-prev" type="button" aria-label="向左滑动角色槽">‹</button>
+        <div class="roster-strip" id="rosterStrip">
+          <label class="roster-slot active red-side">
+            <input class="roster-check" type="checkbox" value="infinite" checked />
+            <span class="mini-avatar"><img src="./assets/wuxian.png?v=20260626-wuxian1" alt="无限" /></span>
+            <span>无限</span>
+          </label>
+          <label class="roster-slot active blue-side">
+            <input class="roster-check" type="checkbox" value="fengxi" checked />
+            <span class="mini-avatar"><img src="./assets/fengxi.png?v=20260604-fengxi-image1" alt="风息" /></span>
+            <span>风息</span>
+          </label>
+          <label class="roster-slot two-v-one-only">
+            <input class="roster-check" type="checkbox" value="fengxiDomain" />
+            <span class="mini-avatar"><img src="./assets/fengxi.png?v=20260604-fengxi-image1" alt="风息（领域）" /></span>
+            <span>风息（领域）</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="xuhuai" />
+            <span class="mini-avatar"><img src="./assets/xuhuai.png" alt="虚淮" /></span>
+            <span>虚淮</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="chinian" />
+            <span class="mini-avatar"><img src="./assets/chinian.png" alt="池年" /></span>
+            <span>池年</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="scythe" />
+            <span class="mini-avatar"><img src="./assets/haoke.png" alt="浩克" /></span>
+            <span>浩克</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="qingquan" />
+            <span class="mini-avatar"><img src="./assets/qingquan.png" alt="清泉" /></span>
+            <span>清泉</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="dasong" />
+            <span class="mini-avatar"><img src="./assets/dasong.png" alt="大松" /></span>
+            <span>大松</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="lingyao" />
+            <span class="mini-avatar"><img src="./assets/lingyao.png" alt="灵遥" /></span>
+            <span>灵遥</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="luye" />
+            <span class="mini-avatar"><img src="./assets/luye.png" alt="鹿野" /></span>
+            <span>鹿野</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="soldier" />
+            <span class="mini-avatar"><img src="./assets/soldier-squad.svg" alt="人类士兵" /></span>
+            <span>士兵</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="ximuzi" />
+            <span class="mini-avatar"><img src="./assets/ximuzi.png" alt="西木子" /></span>
+            <span>西木子</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="nezha" />
+            <span class="mini-avatar"><img src="./assets/nezha.png" alt="哪吒" /></span>
+            <span>哪吒</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="agen" />
+            <span class="mini-avatar"><img src="./assets/agen.png" alt="阿根" /></span>
+            <span>阿根</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="qidao" />
+            <span class="mini-avatar"><img src="./assets/qidao.jpeg?v=20260622-qidao-image1" alt="七刀（雅婷）" /></span>
+            <span>七刀</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="xuanli" />
+            <span class="mini-avatar"><img src="./assets/xuanli.png?v=20260702-xuanli4" alt="玄离" /></span>
+            <span>玄离</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="luoxiaohei" />
+            <span class="mini-avatar"><img src="./assets/luoxiaohei.png?v=20260721-luoxiaohei1" alt="罗小黑" /></span>
+            <span>罗小黑</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="jiulao" />
+            <span class="mini-avatar"><img src="./assets/jiulao.png?v=20260816-jiulao2" alt="鸠老" /></span>
+            <span>鸠老</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="zhiqing" />
+            <span class="mini-avatar"><img src="./assets/zhiqing.png?v=20260902-zhiqing-earthburst1" alt="芷清" /></span>
+            <span>芷清</span>
+          </label>
+          <label class="roster-slot">
+            <input class="roster-check" type="checkbox" value="mingwang" />
+            <span class="mini-avatar"><img src="./assets/mingwang.png?v=20260907-mingwang2" alt="明王" /></span>
+            <span>明王</span>
+          </label>
+        </div>
+        <button class="roster-nav roster-next" type="button" aria-label="向右滑动角色槽">›</button>
+      </section>
+    </main>
+
+    <script src="./game.js?v=20260907-mingwang2"></script>
+  </body>
+</html>
